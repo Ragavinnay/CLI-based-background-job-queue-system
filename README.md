@@ -5,6 +5,10 @@ A robust, production-grade background job queue system implemented in Python, fe
 [![Python Version](https://img.shields.io/badge/python-3.8%2B-blue.svg)](https://www.python.org/downloads/)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 
+## 📺 Demo Video
+
+[Watch the demo video on Google Drive](https://drive.google.com/file/d/1hWZieEsgbUfHMgOZsbcaqKXMJCp9L8cb/view?usp=sharing)
+
 ## 🚀 Features
 
 - **Job Management**: Enqueue, list, and monitor background jobs
@@ -306,7 +310,7 @@ python queuectl.py dlq list
 ```bash
 # Enqueue multiple jobs
 for i in {1..10}; do
-  python queuectl.py enqueue "{\"id\":\"job$i\",\"command\":\"sleep 1\"}"
+  python queuectl.py enqueue '{"id":"job$i","command":"sleep 1"}'
 done
 # Start 3 workers
 python queuectl.py worker start --count 3
@@ -334,7 +338,7 @@ python queuectl.py status
 # 2. Enqueue some jobs
 python queuectl.py enqueue '{"id":"job1","command":"echo Hello"}'
 python queuectl.py enqueue '{"id":"job2","command":"sleep 2"}'
-python queuectl.py enqueue '{"id":"job3","command":"python -c \"print(42)\""}'
+python queuectl.py enqueue '{"id":"job3","command":"python -c "print(42)"}'
 
 # 3. Start workers
 python queuectl.py worker start --count 2
@@ -448,4 +452,3 @@ Built as part of the QueueCTL assignment requirements.
 - [x] Comprehensive README.md
 - [x] Code structured with clear separation of concerns
 - [x] Test script to validate core flows
-
