@@ -1,0 +1,30 @@
+version: '3.8'
+
+services:
+  queuectl:
+    build: .
+    container_name: queuectl
+    volumes:
+      - ./data:/app/data
+      - ./queuectl.py:/app/queuectl.py
+      - ./job.json:/app/job.json
+    environment:
+      - QUEUECTL_DB=/app/data/queuectl.db
+      - DATABASE_URL=sqlite:///data/queuectl.db
+    stdin_open: true
+    tty: true
+    command: tail -f /dev/null  # Keep container running for interactive use
+
+  worker:
+    build: .
+    container_name: queuectl-worker
+    volumes:
+      - ./data:/app/data
+      - ./queuectl.py:/app/queuectl.py
+    environment:
+      - QUEUECTL_DB=/app/data/queuectl.db
+      - DATABASE_URL=sqlite:///data/queuectl.db
+    depends_on:
+      - queuectl
+    command: python queuectl.py worker start --count 2
+
